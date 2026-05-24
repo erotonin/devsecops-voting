@@ -16,16 +16,16 @@ ingress:
 images:
   vote:
     repository: devsecopsvotingacrfi1hac.azurecr.io/voting-app-vote
-    tag: 30334a6edf721661a7b471949a9fd110bd394728
-    digest: sha256:8cfe3f205a1da1074708977a3988092221f1fdb324ce2896a2a9a35dd700814b
+    tag: 1d3bdbf28f2f9e21a357df1e0d2ef589f5f0c053
+    digest: sha256:1fdf1cc27fa1dd599d82fca2cdf90ea9eff4f581bbd205a543c2a5cda47e6bcf
   result:
     repository: devsecopsvotingacrfi1hac.azurecr.io/voting-app-result
-    tag: 30334a6edf721661a7b471949a9fd110bd394728
-    digest: sha256:dad54c03219237573d48d9e330bb1abf3a2f47a0653590d773bd5f5de84501c2
+    tag: 1d3bdbf28f2f9e21a357df1e0d2ef589f5f0c053
+    digest: sha256:99dfe9386da6e5e6eb8ff2f234a3b08471abd677677ddc50d5b7f80c94a25000
   worker:
     repository: devsecopsvotingacrfi1hac.azurecr.io/voting-app-worker
-    tag: 30334a6edf721661a7b471949a9fd110bd394728
-    digest: sha256:c49212b1c380257659133b846d34350834eded20d8fd3b8fea4ce860cb3fe912
+    tag: 1d3bdbf28f2f9e21a357df1e0d2ef589f5f0c053
+    digest: sha256:5f8d12801045b7e4e36596d5a5e928f40c0fe2a478de90bbc283b7042b003039
   redis:
     repository: redis
     tag: 7-alpine
