@@ -160,7 +160,13 @@ Lenh goi y:
 kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster get clusterimagepolicy
 kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster get constrainttemplates
 kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster get externalsecrets -A
+kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster -n monitoring get pods
+kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster -n logging get pods
+kubectl --context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster -n falco get pods
+.\scripts\test-policy-rejects.ps1 -Context arn:aws:eks:us-east-1:800557027783:cluster/voting-app-cluster -Namespace voting-staging
 ```
+
+Ghi chu: trong namespace co Sigstore policy, mot so manifest xau co the bi policy-controller chan truoc Gatekeeper. Diem can noi la admission layer da reject workload khong hop policy.
 
 ## 9. Demo DR Neu Co Thoi Gian
 
@@ -172,6 +178,12 @@ Can demo:
 - VPN/BGP giua hai cloud.
 - PostgreSQL logical replication.
 - Script failover/Route53 neu co hosted zone.
+
+Lenh an toan de demo warm standby ma khong scale lai node pool:
+
+```powershell
+.\scripts\dr-failover.ps1 -SkipScale
+```
 
 Noi voi thay:
 
