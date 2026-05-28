@@ -16,8 +16,8 @@ flowchart LR
   Secret --> FeatureGate{"Feature gate pass?"}
   SAST --> FeatureGate
   ConfigScan --> FeatureGate
-  FeatureGate -- "Fail" --> FixFeature["Tra ve developer<br/>sua loi tren PR"]
-  FixFeature --> PRDev
+  FeatureGate -- "Fail" --> FixFeature["Developer sua loi<br/>push commit moi"]
+  FixFeature --> Branch
   FeatureGate -- "Pass + review" --> DevBranch["dev<br/>integration branch"]
 
   DevBranch --> Integration["Integration gate<br/>kiem tra nhieu feature khi ghep chung"]
@@ -153,6 +153,7 @@ Pipeline nay khong phai chi la build va deploy. No la chuoi kiem soat rui ro. De
 ## 4. Diem Can Nhan Manh Khi Giai Thich
 
 - `Pull request` la diem bat loi som va review thay doi.
+- Neu PR fail gate, developer sua tren feature branch va push commit moi; PR hien tai tu cap nhat va gate chay lai.
 - `dev` la noi gom feature de kiem tra tong hop, khong phai production.
 - `main` la ranh gioi release, khong phai noi push code tuy tien.
 - `Build artifact` tao image bat bien, co the truy vet bang digest.
