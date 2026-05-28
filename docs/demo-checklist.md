@@ -13,6 +13,7 @@ Do an cua em la mot DevSecOps platform cho voting app. Developer khong deploy tr
 Can mo:
 
 - `docs/architecture-conceptual.md`
+- `docs/devsecops-pipeline-diagram.md`
 - So do tong the trong file do neu can.
 
 ## 2. Demo Repository Va Branch Boundary
@@ -181,13 +182,14 @@ DR khong chi la co them mot cluster. No can network path, data replication va ca
 ## 10. Thu Tu Demo De Khong Bi Roi
 
 1. Mo `docs/architecture-conceptual.md` va noi ban chat kien truc.
-2. Mo GitHub branch protection de chung minh boundary.
-3. Mo PR/check de chung minh gate.
-4. Mo Actions run `26565822002` de chung minh build/sign/scan/staging/DAST.
-5. Mo promotion PR `#74` de chung minh production qua GitOps.
-6. Mo terminal kiem tra ArgoCD AWS/Azure `Synced Healthy`.
-7. Goi `/healthz` staging, production, Azure.
-8. Neu con thoi gian, noi runtime security va DR.
+2. Mo `docs/devsecops-pipeline-diagram.md` de nguoi xem nhin duoc toan bo pipeline.
+3. Mo GitHub branch protection de chung minh boundary.
+4. Mo PR/check de chung minh gate.
+5. Mo Actions run `26565822002` de chung minh build/sign/scan/staging/DAST.
+6. Mo promotion PR `#74` de chung minh production qua GitOps.
+7. Mo terminal kiem tra ArgoCD AWS/Azure `Synced Healthy`.
+8. Goi `/healthz` staging, production, Azure.
+9. Neu con thoi gian, noi runtime security va DR.
 
 ## 11. Cau Tra Loi Nhanh Khi Thay Hoi
 
