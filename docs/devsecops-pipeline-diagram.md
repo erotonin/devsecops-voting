@@ -11,10 +11,12 @@ flowchart LR
 
   PRDev --> Secret["Secret scan<br/>chan token/password/key hardcode"]
   PRDev --> SAST["Static code scan<br/>bat bug va mau lo hong"]
+  PRDev --> SCA["Source dependency scan / SCA<br/>bat CVE trong lockfile va third-party libraries"]
   PRDev --> ConfigScan["Config/IaC scan<br/>bat cau hinh nguy hiem"]
 
   Secret --> FeatureGate{"Feature gate pass?"}
   SAST --> FeatureGate
+  SCA --> FeatureGate
   ConfigScan --> FeatureGate
   FeatureGate -- "Fail" --> FixFeature["Developer sua loi<br/>push commit moi"]
   FixFeature --> Branch
@@ -67,7 +69,7 @@ flowchart LR
 
   class Dev,Branch human;
   class FeatureGate,ReleaseGate,ArtifactGate,StagingGate,ProdReview gate;
-  class Secret,SAST,ConfigScan,Integration,ReleasePR security;
+  class Secret,SAST,SCA,ConfigScan,Integration,ReleasePR security;
   class Build,SBOM,Sign,ImageScan artifact;
   class StagingGit,Staging,Smoke,DAST,PromotePR,ProdGit,AWSProd,AzureStandby,Runtime,DR deploy;
   class FixFeature,FixRelease,StopRelease,NoPromote fail;
@@ -88,7 +90,7 @@ flowchart TB
   end
 
   subgraph L2["Security Gates"]
-    B1["Fast PR gate<br/>secret, SAST, dependency/config risk"]
+    B1["Fast PR gate<br/>secret, SAST, SCA/dependency, config risk"]
     B2["Integration gate<br/>scan lai khi nhieu feature ghep chung"]
     B3["Release gate<br/>kiem tra release candidate truoc main"]
   end
@@ -147,13 +149,14 @@ flowchart TB
 ## 3. Loi Thuyet Minh Ngan
 
 ```text
-Pipeline nay khong phai chi la build va deploy. No la chuoi kiem soat rui ro. Developer tao PR thi he thong quet loi som nhu secret, SAST va cau hinh nguy hiem. Khi code vao dev, pipeline kiem tra lai vi nhieu feature ghep chung co the sinh loi moi. Truoc khi vao main co release gate de dam bao release candidate sach. Main moi build artifact that, tao SBOM, ky image va scan CVE. Artifact da pass moi len staging. Staging phai smoke test va DAST pass thi moi mo promotion PR. Production khong deploy truc tiep tu CI, ma ArgoCD dong bo tu desired state trong Git. Sau deploy van co runtime policy, secret management, monitoring va DR.
+Pipeline nay khong phai chi la build va deploy. No la chuoi kiem soat rui ro. Developer tao PR thi he thong quet loi som nhu secret, SAST, SCA/dependency va cau hinh nguy hiem. SCA o tang source giup bat CVE trong dependency manifest/lockfile som de developer sua ngay. Khi code vao dev, pipeline kiem tra lai vi nhieu feature ghep chung co the sinh loi moi. Truoc khi vao main co release gate de dam bao release candidate sach. Main moi build artifact that, tao SBOM, ky image va scan CVE tren image da build. Artifact da pass moi len staging. Staging phai smoke test va DAST pass thi moi mo promotion PR. Production khong deploy truc tiep tu CI, ma ArgoCD dong bo tu desired state trong Git. Sau deploy van co runtime policy, secret management, monitoring va DR.
 ```
 
 ## 4. Diem Can Nhan Manh Khi Giai Thich
 
 - `Pull request` la diem bat loi som va review thay doi.
 - Neu PR fail gate, developer sua tren feature branch va push commit moi; PR hien tai tu cap nhat va gate chay lai.
+- `SCA/dependency scan` nam o PR gate de bat CVE trong third-party libraries som; `image scan` nam o artifact gate de quet image that sau build.
 - `dev` la noi gom feature de kiem tra tong hop, khong phai production.
 - `main` la ranh gioi release, khong phai noi push code tuy tien.
 - `Build artifact` tao image bat bien, co the truy vet bang digest.

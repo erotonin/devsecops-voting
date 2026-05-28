@@ -26,7 +26,7 @@ Khi developer tao PR vao `dev`, GitHub Actions chay fast gate.
 | --- | --- | --- |
 | Secret scanning | Gitleaks | Chan token, password, private key bi hardcode |
 | Static application security | Semgrep | Bat bug va mau code co lo hong |
-| Filesystem/dependency scan | Trivy FS | Quet CVE va secret trong repo |
+| SCA / dependency scan | Trivy FS, npm audit | Quet CVE trong dependency manifest/lockfile va third-party libraries |
 | Code quality | SonarCloud | Phat hien bug, smell, duplication |
 | Local hygiene | pre-commit | Chuan hoa format, newline, whitespace, secret check |
 
@@ -41,7 +41,7 @@ Sau khi merge vao `dev`, pipeline chay bo kiem tra rong hon.
 | Secret scanning | Gitleaks | Dam bao `dev` khong chua secret |
 | SAST | Semgrep | Quet loi code theo rule bao mat |
 | IaC security | Checkov, tfsec | Kiem tra Terraform AWS/Azure |
-| Container/IaC/config scan | Trivy FS | Kiem tra filesystem va config |
+| SCA / filesystem scan | Trivy FS | Kiem tra dependency manifest, lockfile, filesystem va config |
 | Kubernetes manifest | Helm lint, Helm template | Dam bao chart render hop le |
 | Policy as code | Conftest/OPA | Chan manifest vi pham policy |
 
@@ -60,6 +60,8 @@ Khi tao PR `dev -> main`, GitHub Actions chay `Release PR full security gates`.
 | Policy | Conftest | Dam bao manifest hop policy |
 
 Ket qua dung: PR vao `main` chi merge khi full gate pass va co review.
+
+Ghi chu: Trivy FS va `npm audit` la source-level SCA. Chung bat CVE trong dependency manifest/lockfile som o PR/integration/release gate. Trivy image scan o buoc artifact la lop khac, dung de quet image that sau khi build, bao gom base image va package da cai trong container.
 
 ## 5. Build, SBOM, Signing Va Scan Image
 
