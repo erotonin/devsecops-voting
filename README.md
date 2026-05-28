@@ -181,6 +181,9 @@ Use the verified demo runbook:
 docs/teacher-aligned-demo-runbook.md
 docs/devsecops-phase-model.md
 docs/teacher-aligned-architecture.md
+docs/architecture-conceptual.md
+docs/pipeline-frameworks.md
+docs/demo-checklist.md
 ```
 
 Useful scripts:
