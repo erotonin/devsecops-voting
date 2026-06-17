@@ -363,7 +363,7 @@ jobs:
           docker tag "${{ matrix.service }}:${IMAGE_TAG}" "${ACR_LOGIN_SERVER}/voting-app-${{ matrix.service }}:${IMAGE_TAG}"
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac
+        uses: sigstore/cosign-installer@7e8b541eb2e61bf99390e1afd4be13a184e9ebc5
 
       - name: Push ECR image and resolve digest
         id: push_ecr
